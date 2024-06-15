@@ -9,12 +9,14 @@ int i = 0;
 int a = 0;
 int prev_time = 0;
 int dir = 1;
+int time_idx = 0;
 int main(){
   DDRD = DDRD | 0b00011111;
   PORTD = PORTD & (1 << OE);
   PORTD |= PORTD | (1 << SRCLR);
   
   while(1){
+    
     c = (c + 1) % 256;
     if(c == 0){
       freq[a]= (freq[a] + 1)%256;
@@ -23,13 +25,26 @@ int main(){
     }
 
     
-    //t = freq[0] > c;
     for(i = 0; i < 8; i++){
-      t = t << 1;
-      t |= freq[i] > c;
+	t = t << 1;
+	t |= freq[i] > c;
     }
     
     loadValue(t);
+
+
+    /*int bit_extract = 1 << time_idx;
+    
+    if(c == timing[time_idx]){
+	    time_idx = (time_idx+1)%8;
+	    for(i = 0; i < 8; i++){
+		t |= freq[i] | bit_extract;
+		t = t << 1;
+	    }
+	    loadValue(t);
+    }*/
+
+
   }
   
   return 1;

@@ -1,14 +1,8 @@
 #!/bin/bash
 
-SOURCE_FILES="74HC595.c bamPWM.c"
-OUTPUT_ELF="bamPWM.elf"
-OUT_HEX="bamPWM.hex"
-MCU="atmega328p"
-F_CPU="16000000UL"
-PORT="/dev/ttyACM0"
-BAUD="115200"
+avr-gcc -mmcu=atmega328p -DF_CPU=16000000UL -Os -o bamPWM.elf 74HC595.c bamPWM.c 
+avr-objcopy -O ihex -R .eeprom bamPWM.elf bamPWM.hex
+avrdude -v -patmega328p -carduino -P/dev/ttyACM0 -b115200 -D -Uflash:w:bamPWM.hex:i
 
-avr-gcc -mmcu=$MCU -DF_CPU=$F_CPU -Os -o $OUTPUT_ELF $SOURCE_FILES
-avr-objcopy -O ihex -R .eeprom $OUTPUT_ELF $OUTPUT_HEX
-avrdude -v -p$MCU -carduino -P$PORT -b$BAUD -D -Uflash:w:$OUTPUT_HEX:i
+
 
