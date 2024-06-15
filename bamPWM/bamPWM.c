@@ -2,7 +2,7 @@
 
 int freq[8]= {0, 0, 0, 0, 0, 0, 0, 255};
 int vals[2] = {0, 255};
-
+int timing[8] = {1, 2, 4, 8, 16, 32, 64, 128};
 int c = -1;
 int t = 0;
 int i = 0;
@@ -23,8 +23,8 @@ int main(){
     }
 
     
-    t = freq[0] > c;
-    for(i = 1; i < 8; i++){
+    //t = freq[0] > c;
+    for(i = 0; i < 8; i++){
       t = t << 1;
       t |= freq[i] > c;
     }

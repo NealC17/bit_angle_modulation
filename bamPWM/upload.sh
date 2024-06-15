@@ -5,7 +5,7 @@ OUTPUT_ELF="bamPWM.elf"
 OUT_HEX="bamPWM.hex"
 MCU="atmega328p"
 F_CPU="16000000UL"
-PORT="/dev/ACMUSB0"
+PORT="/dev/ttyACM0"
 BAUD="115200"
 
 avr-gcc -mmcu=$MCU -DF_CPU=$F_CPU -Os -o $OUTPUT_ELF $SOURCE_FILES
